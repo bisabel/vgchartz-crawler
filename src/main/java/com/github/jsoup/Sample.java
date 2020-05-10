@@ -17,7 +17,7 @@ public class Sample {
     public static void main(String[] args)  throws Exception{
     // 7/xbox-360/
       platformPage("7/xbox-360/","data-xbox360.csv");
-      platformPage("68/xbox-one/","data-xbox-one.csv");      
+      platformPage("68/xbox-one/","data-xbox-one.csv");
       platformPage("69/playstation-4/","data-ps4.csv");
       platformPage("3/playstation-3/","data-ps3.csv");
       platformPage("1/nintendo-ds/","data-nintendo-ds.csv");
@@ -28,7 +28,7 @@ public class Sample {
 
     public static void platformPage(String platform, String file) throws Exception{
       FileWriter pw = new FileWriter(file, true);
-      pw.append("Pos, Game, Year, Genre, Publisher, North America, Europe, Japan, Rest of World, Global");
+      pw.append("Pos|Game|Year|Genre|Publisher|North America|Europe|Japan|Rest of World|Global");
 
       String url = "https://www.vgchartz.com/platform/"+platform;
       Document _doc = Jsoup.parse(new URL(url).openStream(), "ISO-8859-1", url);
@@ -73,14 +73,14 @@ public class Sample {
             total = info.text();
           count++;
         }
-        /*System.out.print(name+", "+link+", "+release+", "+genre+", "+publisher+", "+northAmerica+", "+europe+", "+japan+", "+rest+", "+total);
+        /*System.out.print(name+"|"+link+"|"+release+"|"+genre+"|"+publisher+"|"+northAmerica+"|"+europe+"|"+japan+"|"+rest+"|"+total);
         TimeUnit.SECONDS.sleep(20);
         if ( link.startsWith("https://www.vgchartz.com/game"))
           gamePage(link);
         else
           System.out.println("");
         */
-        pw.append(name+", "+link+", "+release+", "+genre+", "+publisher+", "+northAmerica+", "+europe+", "+japan+", "+rest+", "+total);
+        pw.append(name+"|"+link+"|"+release+"|"+genre+"|"+publisher+"|"+northAmerica+"|"+europe+"|"+japan+"|"+rest+"|"+total);
         pw.append("\n");
       }
       System.out.println("size "+_tr.size());
@@ -102,7 +102,7 @@ public class Sample {
       try {
         Document doc = Jsoup.connect(url).userAgent(USER_AGENT).timeout(0).get();
         //Document doc = Jsoup.parse(new URL(url).openStream(), "ISO-8859-1", url);
-        //Document doc = Jsoup.connect().userAgent("Mozilla").data("name", "jsoup").get();
+        //Document doc = Jsoup.connect().userAgent("Mozilla").data("name"|"jsoup").get();
         Element _body = doc.body();
         //System.out.println( "Analyce: "+url );
         if ( _body.hasText() ){
@@ -184,7 +184,7 @@ public class Sample {
                 //System.out.println("GENRE: " + _genreh2.html() );
                 genre = _genreh2.nextElementSibling().html();
               }
-              System.out.println(", " + esrb +",  "+ cero +", "+ pegi +", GENRE: " + genre +";");
+              System.out.println("|" + esrb +",  "+ cero +"|"+ pegi +", GENRE: " + genre +";");
           } else
               System.out.print("ELSE has NO SRC: " + _center.html() );
 
